@@ -28,8 +28,8 @@ def Authorize():
 
 def PrettyPrint(name, total_count, stats):
   print "%s: %d commits" % (name, total_count)
-  for name, count in stats.iteritems():
-    print "%40s %3d" % (name, count)
+  for name in sorted(stats, key=stats.get, reverse=True):
+    print "%40s %3d" % (name, stats[name])
   print ""
 
 gh = Authorize()
@@ -41,10 +41,13 @@ for repo in org.repositories():
   commit_count = 0
   commits_by_author = {}
   try:
-    for commit in repo.commits(sha='master'):
+    for commit in repo.commits():
       commit_count += 1
       total_commits += 1
-      author = commit.commit.author['name']
+      try:
+        author = commit.author.login
+      except AttributeError:
+        author = commit.commit.author['name']
       if author not in commits_by_author:
         commits_by_author[author] = 0
       if author not in overall_commits_by_author:
