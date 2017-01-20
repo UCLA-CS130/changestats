@@ -1,0 +1,6 @@
+[submodule "submodules/github3"]
+	path = submodules/github3
+	url = https://github.com/sigmavirus24/github3.py.git
+[submodule "submodules/uritemplate"]
+	path = submodules/uritemplate
+	url = https://github.com/sigmavirus24/uritemplate.git
